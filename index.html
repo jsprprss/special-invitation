@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#7654b8" />
+    <title>A Little Invitation</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main class="page-shell">
+      <div class="ambient ambient-one" aria-hidden="true"></div>
+      <div class="ambient ambient-two" aria-hidden="true"></div>
+
+      <section class="screen active" id="question-screen" aria-labelledby="question-title">
+        <div class="card question-card">
+          <span class="eyebrow">a tiny question for you</span>
+          <span class="sparkle" aria-hidden="true">✦</span>
+          <h1 id="question-title">Pwede ba tayo<br />kumain sa labas? <span aria-hidden="true">🙏😊</span></h1>
+          <p class="playful-message" id="no-message" aria-live="polite">I promise it'll be fun.</p>
+          <div class="choice-buttons" aria-label="Invitation response">
+            <button class="button yes-button" id="yes-button" type="button">YES <span aria-hidden="true">✦</span></button>
+            <button class="button no-button" id="no-button" type="button">NO</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="screen celebration-screen" id="celebration-screen" aria-labelledby="celebration-title" hidden>
+        <div class="card celebration-card">
+          <div class="celebration-mark" aria-hidden="true">✦</div>
+          <h1 id="celebration-title">YESSS!!!!!</h1>
+          <p>Salamat and this time tuloy na talaga <span aria-hidden="true">🤗🫣🫰</span></p>
+        </div>
+        <div class="confetti" id="confetti" aria-hidden="true"></div>
+      </section>
+
+      <section class="screen" id="date-screen" aria-labelledby="date-title" hidden>
+        <div class="card planner-card">
+          <span class="step">01 / 02</span>
+          <h1 id="date-title">When are you free? <span aria-hidden="true">📅</span></h1>
+          <p class="helper">Pick a day that feels good.</p>
+          <div class="calendar" aria-label="Choose a date">
+            <div class="calendar-header">
+              <button class="calendar-nav" id="previous-month" type="button" aria-label="Previous month">←</button>
+              <h2 id="month-label" aria-live="polite"></h2>
+              <button class="calendar-nav" id="next-month" type="button" aria-label="Next month">→</button>
+            </div>
+            <div class="weekdays" aria-hidden="true"><span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span></div>
+            <div class="calendar-days" id="calendar-days"></div>
+          </div>
+          <button class="button continue-button" id="date-continue" type="button" disabled>Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section class="screen" id="time-screen" aria-labelledby="time-title" hidden>
+        <div class="card planner-card time-card">
+          <span class="step">02 / 02</span>
+          <h1 id="time-title">What time works for you? <span aria-hidden="true">⏰</span></h1>
+          <p class="helper">I'll save the best seat for us.</p>
+          <div class="time-grid" id="time-grid" aria-label="Choose a time">
+            <button type="button" class="time-option">11:00 AM</button>
+            <button type="button" class="time-option">12:00 PM</button>
+            <button type="button" class="time-option">1:00 PM</button>
+            <button type="button" class="time-option">2:00 PM</button>
+            <button type="button" class="time-option">6:00 PM</button>
+            <button type="button" class="time-option">7:00 PM</button>
+            <button type="button" class="time-option">8:00 PM</button>
+          </div>
+          <button class="button continue-button" id="time-continue" type="button" disabled>Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section class="screen" id="confirmation-screen" aria-labelledby="confirmation-title" hidden>
+        <div class="card confirmation-card">
+          <div class="confirmation-icon" aria-hidden="true">✦</div>
+          <span class="eyebrow">plans, officially made</span>
+          <h1 id="confirmation-title">It's a date! <span aria-hidden="true">❤️</span></h1>
+          <div class="details" aria-label="Selected date and time">
+            <div><span>Date</span><strong id="confirmed-date"></strong></div>
+            <div><span>Time</span><strong id="confirmed-time"></strong></div>
+          </div>
+          <p>Can't wait! See you then! <span aria-hidden="true">💜</span></p>
+          <button class="button yes-button final-button" id="final-button" type="button">Yay! Can't wait! <span aria-hidden="true">🎉</span></button>
+        </div>
+      </section>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
+
