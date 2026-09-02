@@ -126,7 +126,7 @@
     showScreen('confirmation-screen');
   });
   document.getElementById('final-button').addEventListener('click', () => {
-    document.getElementById('final-button').textContent = 'See you soon! 💜';
+    document.getElementById('final-button').textContent = 'excited na ako makita ka ulit. 😀';
   });
 
   renderCalendar();
