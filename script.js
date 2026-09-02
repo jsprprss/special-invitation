@@ -98,7 +98,7 @@
   yesButton.addEventListener('click', () => {
     showScreen('celebration-screen');
     throwConfetti();
-    window.setTimeout(() => showScreen('date-screen'), 5000);
+    window.setTimeout(() => showScreen('date-screen'), 8000);
   });
 
   document.getElementById('previous-month').addEventListener('click', () => {
