@@ -121,6 +121,38 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .planner-card { text-align: left; }
 .planner-card h1 { margin: 12px 0 7px; font-size: clamp(2rem, 7vw, 3rem); }
 .helper { margin-bottom: 28px; }
+
+.date-teddy-stage { position: relative; display: grid; height: 63px; margin: -8px 0 13px; place-items: center; pointer-events: none; }
+.date-teddy { --date-teddy-scale: 1; position: relative; width: 79px; height: 65px; transform-origin: 50% 100%; animation: date-teddy-help .95s ease-in-out infinite; }
+.date-teddy-head { position: absolute; z-index: 3; top: 6px; left: 9px; width: 61px; height: 56px; border-radius: 48% 48% 44% 44%; background: #a98ad4; box-shadow: inset 0 -5px 0 rgba(75, 50, 119, .07); }
+.date-teddy-ear { position: absolute; z-index: 2; top: 0; width: 27px; height: 27px; border-radius: 50%; background: #9270c2; }
+.date-teddy-ear::after { position: absolute; inset: 7px; border-radius: 50%; background: #c9b7e4; content: ""; }
+.date-teddy-ear-left { left: 8px; }
+.date-teddy-ear-right { right: 8px; }
+.date-teddy-eye { position: absolute; top: 23px; width: 5px; height: 7px; border-radius: 50%; background: #4b3277; }
+.date-teddy-eye-left { left: 19px; }
+.date-teddy-eye-right { right: 19px; }
+.date-teddy-muzzle { position: absolute; left: 19px; bottom: 9px; width: 23px; height: 17px; border-radius: 50%; background: #dfd3ef; }
+.date-teddy-nose { position: absolute; top: 4px; left: 8px; width: 8px; height: 5px; border-radius: 55% 55% 65% 65%; background: #5a3d83; }
+.date-teddy-nose::after { position: absolute; top: 5px; left: 3px; width: 2px; height: 5px; border-radius: 2px; background: #5a3d83; content: ""; }
+.date-teddy-body { position: absolute; z-index: 1; bottom: -8px; left: 18px; width: 43px; height: 30px; border-radius: 46% 46% 28% 28%; background: #9472c5; }
+.date-teddy-arm { position: absolute; z-index: 2; top: 44px; width: 15px; height: 35px; border-radius: 999px; background: #a98ad4; transform-origin: 50% 5px; }
+.date-teddy-arm-left { left: 15px; transform: rotate(30deg); }
+.date-teddy-arm-right { right: 14px; transform: rotate(-50deg); animation: date-teddy-point .95s ease-in-out infinite; }
+.date-teddy-pointer { position: absolute; left: calc(50% + 40px); top: 38px; color: var(--purple); font-size: 1.2rem; font-weight: 700; animation: date-pointer-bounce .95s ease-in-out infinite; }
+@keyframes date-teddy-help {
+  0%, 100% { transform: translateY(0) rotate(-4deg) scale(var(--date-teddy-scale)); }
+  50% { transform: translateY(-6px) rotate(4deg) scale(var(--date-teddy-scale)); }
+}
+@keyframes date-teddy-point {
+  0%, 100% { transform: rotate(-46deg); }
+  50% { transform: rotate(-72deg) translateY(-2px); }
+}
+@keyframes date-pointer-bounce {
+  0%, 100% { transform: translateY(0); opacity: .7; }
+  50% { transform: translateY(7px); opacity: 1; }
+}
+
 .calendar { padding: 16px 10px 8px; border: 1px solid #eee9f4; border-radius: 20px; background: #fcfbfe; }
 .calendar-header { display: grid; grid-template-columns: 40px 1fr 40px; align-items: center; margin-bottom: 14px; text-align: center; }
 .calendar-header h2 { margin: 0; color: var(--ink); font-size: .98rem; font-weight: 700; }
@@ -155,6 +187,12 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
   100% { transform: translate(var(--x), 16px) rotate(145deg); opacity: 1; }
 }
 @media (min-width: 600px) { .time-grid { grid-template-columns: repeat(3, 1fr); } .card { border-radius: 36px; } }
-@media (max-width: 360px) { .card { padding-inline: 22px; } .yes-button { min-width: 130px; } .choice-buttons { gap: 10px; } }
+@media (max-width: 360px) {
+  .card { padding-inline: 22px; }
+  .yes-button { min-width: 130px; }
+  .choice-buttons { gap: 10px; }
+  .date-teddy-stage { height: 53px; margin-bottom: 8px; }
+  .date-teddy { --date-teddy-scale: .82; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
 
