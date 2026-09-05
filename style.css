@@ -60,6 +60,10 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .teddy-muzzle { position: absolute; left: 31px; bottom: 14px; width: 34px; height: 24px; border-radius: 50%; background: #d9cbee; }
 .teddy-nose { position: absolute; top: 6px; left: 12px; width: 10px; height: 7px; border-radius: 55% 55% 65% 65%; background: #5a3d83; }
 .teddy-nose::after { position: absolute; top: 6px; left: 4px; width: 2px; height: 7px; border-radius: 2px; background: #5a3d83; content: ""; }
+@media (min-width: 361px) and (max-width: 479px) {
+  .date-teddy-stage { height: 63px; margin: -8px 0 13px; }
+}
+
 @media (max-width: 360px) { .teddy-peek { right: 2px; bottom: -40px; transform: scale(.78); transform-origin: bottom right; } }
 
 .choice-buttons { display: flex; align-items: center; justify-content: center; gap: 16px; min-height: 72px; }
@@ -122,8 +126,9 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .planner-card h1 { margin: 12px 0 7px; font-size: clamp(2rem, 7vw, 3rem); }
 .helper { margin-bottom: 28px; }
 
-.date-teddy-stage { position: relative; display: grid; height: 63px; margin: -8px 0 13px; place-items: center; pointer-events: none; }
-.date-teddy { --date-teddy-scale: 1; position: relative; width: 79px; height: 65px; transform-origin: 50% 100%; animation: date-teddy-help .95s ease-in-out infinite; }
+.date-teddy-stage { position: relative; z-index: 1; display: grid; height: 92px; margin: 0 0 13px; place-items: center; overflow: visible; isolation: isolate; pointer-events: none; }
+.date-teddy { --date-teddy-scale: 1; position: relative; z-index: 3; display: block; width: 79px; height: 65px; visibility: visible; opacity: 1; transform-origin: 50% 100%; animation: date-teddy-help .95s ease-in-out infinite; }
+.date-teddy > span { display: block; }
 .date-teddy-head { position: absolute; z-index: 3; top: 6px; left: 9px; width: 61px; height: 56px; border-radius: 48% 48% 44% 44%; background: #a98ad4; box-shadow: inset 0 -5px 0 rgba(75, 50, 119, .07); }
 .date-teddy-ear { position: absolute; z-index: 2; top: 0; width: 27px; height: 27px; border-radius: 50%; background: #9270c2; }
 .date-teddy-ear::after { position: absolute; inset: 7px; border-radius: 50%; background: #c9b7e4; content: ""; }
@@ -139,7 +144,7 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .date-teddy-arm { position: absolute; z-index: 2; top: 44px; width: 15px; height: 35px; border-radius: 999px; background: #a98ad4; transform-origin: 50% 5px; }
 .date-teddy-arm-left { left: 15px; transform: rotate(30deg); }
 .date-teddy-arm-right { right: 14px; transform: rotate(-50deg); animation: date-teddy-point .95s ease-in-out infinite; }
-.date-teddy-pointer { position: absolute; left: calc(50% + 40px); top: 38px; color: var(--purple); font-size: 1.2rem; font-weight: 700; animation: date-pointer-bounce .95s ease-in-out infinite; }
+.date-teddy-pointer { position: absolute; z-index: 4; left: calc(50% + 40px); top: calc(50% + 4px); color: var(--purple); font-size: 1.2rem; font-weight: 700; animation: date-pointer-bounce .95s ease-in-out infinite; }
 @keyframes date-teddy-help {
   0%, 100% { transform: translateY(0) rotate(-4deg) scale(var(--date-teddy-scale)); }
   50% { transform: translateY(-6px) rotate(4deg) scale(var(--date-teddy-scale)); }
