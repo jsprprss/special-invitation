@@ -1499,3 +1499,12 @@ h1 {
     animation: none !important;
   }
 }
+
+
+/* Keep off-canvas decoration out of document flow; real card overflow still scrolls. */
+.ambient,
+.page-shell::before,
+.page-shell::after,
+.star-field {
+  position: fixed;
+}
