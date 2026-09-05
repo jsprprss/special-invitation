@@ -149,9 +149,6 @@
     document.getElementById('confirmed-time').textContent = state.selectedTime;
     showScreen('confirmation-screen');
   });
-  document.getElementById('final-button').addEventListener('click', () => {
-    document.getElementById('final-button').textContent = 'excited na ako makita ka ulit. 😀';
-  });
 
   renderCalendar();
 })();
