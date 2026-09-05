@@ -1508,3 +1508,191 @@ h1 {
 .star-field {
   position: fixed;
 }
+
+
+/* Noticeable magical star field — background-only, interaction-safe. */
+body::before {
+  opacity: .88;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, .42) 0 1px, transparent 1.6px),
+    radial-gradient(circle, rgba(231, 211, 255, .34) 0 1.4px, transparent 2px),
+    radial-gradient(circle, rgba(255, 246, 255, .26) 0 .8px, transparent 1.4px);
+  background-position: 0 0, 23px 31px, 41px 17px;
+  background-size: 44px 46px, 73px 79px, 101px 109px;
+  animation: star-haze-twinkle 5.8s ease-in-out -1.9s infinite;
+}
+
+.star-field {
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, .58) 0 1px, transparent 1.7px),
+    radial-gradient(circle, rgba(222, 195, 255, .5) 0 1.25px, transparent 1.9px),
+    radial-gradient(circle, rgba(255, 249, 255, .38) 0 .8px, transparent 1.45px),
+    radial-gradient(circle, rgba(205, 169, 249, .43) 0 1px, transparent 1.65px);
+  background-position: 7px 11px, 31px 47px, 58px 19px, 18px 73px;
+  background-size: 83px 89px, 127px 139px, 169px 157px, 211px 197px;
+}
+
+.star-field::before {
+  content: "✦";
+  color: rgba(255, 252, 255, .96);
+  font-size: 10px;
+  text-shadow:
+    4vw 8vh 0 rgba(255, 255, 255, .95),
+    11vw 19vh 0 rgba(224, 198, 255, .88),
+    18vw 6vh 0 rgba(255, 248, 255, .84),
+    24vw 28vh 0 rgba(238, 220, 255, .9),
+    31vw 13vh 0 rgba(255, 255, 255, .88),
+    38vw 36vh 0 rgba(213, 179, 255, .83),
+    45vw 7vh 0 rgba(255, 250, 255, .92),
+    52vw 22vh 0 rgba(229, 205, 255, .88),
+    59vw 11vh 0 rgba(255, 255, 255, .9),
+    66vw 33vh 0 rgba(220, 191, 255, .84),
+    73vw 6vh 0 rgba(255, 249, 255, .94),
+    80vw 24vh 0 rgba(232, 211, 255, .88),
+    88vw 14vh 0 rgba(255, 255, 255, .9),
+    95vw 31vh 0 rgba(218, 187, 255, .84),
+    7vw 43vh 0 rgba(238, 219, 255, .87),
+    15vw 56vh 0 rgba(255, 255, 255, .93),
+    22vw 47vh 0 rgba(214, 182, 255, .82),
+    29vw 67vh 0 rgba(255, 249, 255, .9),
+    36vw 52vh 0 rgba(230, 204, 255, .86),
+    43vw 74vh 0 rgba(255, 255, 255, .92),
+    50vw 43vh 0 rgba(219, 188, 255, .82),
+    57vw 61vh 0 rgba(255, 249, 255, .9),
+    64vw 49vh 0 rgba(237, 218, 255, .87),
+    71vw 70vh 0 rgba(255, 255, 255, .94),
+    78vw 45vh 0 rgba(214, 179, 255, .82),
+    85vw 59vh 0 rgba(255, 249, 255, .9),
+    93vw 48vh 0 rgba(232, 208, 255, .88),
+    5vw 79vh 0 rgba(255, 255, 255, .9),
+    13vw 91vh 0 rgba(218, 185, 255, .84),
+    20vw 72vh 0 rgba(255, 249, 255, .92),
+    34vw 88vh 0 rgba(231, 207, 255, .86),
+    48vw 82vh 0 rgba(255, 255, 255, .94),
+    61vw 94vh 0 rgba(216, 183, 255, .83),
+    75vw 85vh 0 rgba(255, 250, 255, .9),
+    87vw 76vh 0 rgba(234, 213, 255, .87),
+    96vw 93vh 0 rgba(255, 255, 255, .92);
+  animation: star-twinkle-strong 4.4s ease-in-out infinite;
+}
+
+/* Two occasional shooting stars, always beneath the interactive content. */
+.star-field::after,
+body::after {
+  position: fixed;
+  z-index: 0;
+  display: block;
+  width: 150px;
+  height: 2px;
+  border-radius: 999px;
+  pointer-events: none;
+  content: "";
+  opacity: 0;
+  will-change: transform, opacity;
+}
+
+.star-field::after {
+  top: 8vh;
+  left: -22vw;
+  color: transparent;
+  text-shadow: none;
+  background: linear-gradient(90deg, transparent 0%, rgba(224, 197, 255, .24) 36%, rgba(255, 250, 255, .95) 100%);
+  filter:
+    drop-shadow(0 0 4px rgba(235, 217, 255, .9))
+    drop-shadow(0 0 9px rgba(170, 120, 225, .65));
+  animation: shooting-star-left 13s linear -4.2s infinite;
+}
+
+body::after {
+  top: 27vh;
+  right: -24vw;
+  background: linear-gradient(90deg, rgba(255, 250, 255, .96) 0%, rgba(222, 194, 255, .28) 64%, transparent 100%);
+  filter:
+    drop-shadow(0 0 4px rgba(242, 226, 255, .9))
+    drop-shadow(0 0 9px rgba(174, 126, 230, .62));
+  animation: shooting-star-right 17s linear -10.5s infinite;
+}
+
+@keyframes star-haze-twinkle {
+  0%, 100% { opacity: .58; }
+  38% { opacity: .93; }
+  64% { opacity: .72; }
+  82% { opacity: 1; }
+}
+
+@keyframes star-twinkle-strong {
+  0%, 100% {
+    opacity: .38;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, .22));
+  }
+  24% {
+    opacity: .9;
+    filter: drop-shadow(0 0 5px rgba(239, 220, 255, .88));
+  }
+  47% {
+    opacity: .56;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, .46));
+  }
+  73% {
+    opacity: 1;
+    filter: drop-shadow(0 0 7px rgba(222, 193, 255, .92));
+  }
+}
+
+@keyframes shooting-star-left {
+  0%, 61% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(18deg) scaleX(.72);
+  }
+  62% { opacity: .95; }
+  69% {
+    opacity: .95;
+    transform: translate3d(150vw, 42vh, 0) rotate(18deg) scaleX(1);
+  }
+  70%, 100% {
+    opacity: 0;
+    transform: translate3d(150vw, 42vh, 0) rotate(18deg) scaleX(.9);
+  }
+}
+
+@keyframes shooting-star-right {
+  0%, 72% {
+    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(-18deg) scaleX(.7);
+  }
+  73% { opacity: .9; }
+  80% {
+    opacity: .9;
+    transform: translate3d(-150vw, 38vh, 0) rotate(-18deg) scaleX(1);
+  }
+  81%, 100% {
+    opacity: 0;
+    transform: translate3d(-150vw, 38vh, 0) rotate(-18deg) scaleX(.9);
+  }
+}
+
+@media (max-width: 599px) {
+  .star-field::before {
+    font-size: 8px;
+  }
+
+  .star-field::after,
+  body::after {
+    width: 104px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  .star-field::before {
+    animation: none !important;
+    opacity: .82;
+    filter: none;
+  }
+
+  .star-field::after,
+  body::after {
+    display: none;
+    animation: none !important;
+  }
+}
