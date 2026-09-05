@@ -76,7 +76,7 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 
 .celebration-card { padding-block: 70px; }
 
-.celebration-card > :not(.celebration-teddy) { position: relative; z-index: 1; }
+.celebration-card > :not(.celebration-teddy) { position: relative; z-index: 3; }
 .celebration-teddy { --teddy-scale: 1; position: absolute; z-index: 0; left: clamp(4px, 3vw, 24px); bottom: -42px; width: 91px; height: 121px; transform-origin: 50% 100%; animation: teddy-dance .82s cubic-bezier(.3, .05, .32, 1.22) infinite; filter: drop-shadow(0 -4px 6px rgba(75, 50, 119, .1)); }
 .celebration-teddy-head { position: absolute; z-index: 3; top: 16px; left: 8px; width: 76px; height: 70px; border-radius: 48% 48% 44% 44%; background: #a98ad4; box-shadow: inset 0 -6px 0 rgba(75, 50, 119, .07); }
 .celebration-teddy-ear { position: absolute; z-index: 2; top: 5px; width: 33px; height: 33px; border-radius: 50%; background: #9270c2; }
@@ -120,7 +120,7 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .celebration-message { display: grid; gap: 11px; margin: 0 auto; }
 .celebration-message p { margin: 0 auto; }
 .confetti { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
-.confetti-piece { position: absolute; width: 9px; height: 14px; border-radius: 4px; background: var(--purple); animation: confetti-drift 2.8s ease-in-out infinite alternate; }
+.confetti-piece { position: absolute; width: 8px; height: 13px; border-radius: 4px; background: var(--purple); will-change: transform, opacity; animation: confetti-fall 2.35s cubic-bezier(.16, .76, .35, 1) forwards; }
 
 .planner-card { text-align: left; }
 .planner-card h1 { margin: 12px 0 7px; font-size: clamp(2rem, 7vw, 3rem); }
@@ -187,9 +187,10 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .final-button { width: 100%; margin-top: 22px; }
 
 @keyframes enter { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes confetti-drift {
-  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
-  100% { transform: translate(var(--x), 16px) rotate(145deg); opacity: 1; }
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -12px, 0) rotate(0deg); opacity: 0; }
+  10%, 72% { opacity: 1; }
+  100% { transform: translate3d(var(--drift), var(--fall), 0) rotate(var(--spin)); opacity: 0; }
 }
 @media (min-width: 600px) { .time-grid { grid-template-columns: repeat(3, 1fr); } .card { border-radius: 36px; } }
 @media (max-width: 360px) {
