@@ -1,8 +1,8 @@
 (() => {
   const state = { selectedDate: null, selectedTime: null, selectedActivity: '', noClickCount: 0 };
-  const noMessages = ["Sure ka? 🥺", "Pag-isipan mo ulit 😭", "Please? 🥹", "One more chance?", "Say yes? 💜"];
-  const noScales = [1, .82, .66, .52, .41, .34];
-  const yesScales = [1, 1.08, 1.17, 1.28, 1.4, 1.5];
+  const noMessages = ["Sure ka? 🥺", "Pag-isipan mo ulit 😭", "Please? 🥹", "One more chance?", "Say yes? 💜", "wala na, nasira na yung NO button 😝😝"];
+  const noScales = [1, .82, .66, .52, .41, .34, .28];
+  const yesScales = [1, 1.08, 1.17, 1.28, 1.4, 1.5, 1.6];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   let viewDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -108,7 +108,7 @@
 
   noButton.addEventListener('click', () => {
     state.noClickCount += 1;
-    const stage = Math.min(state.noClickCount, 5);
+    const stage = Math.min(state.noClickCount, 6);
     noMessage.style.opacity = '0';
     noMessage.style.transform = 'translateY(3px)';
     window.setTimeout(() => {
