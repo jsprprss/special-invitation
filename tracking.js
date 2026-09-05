@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  const WEB_APP_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+  const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz4WmBkFJTtJ5qVLCaRz9rJ3xTJvYxgJcB0nASBeuJcDYd-YBRaTrvrJA90pTlcZh96/exec';
   const STORAGE_KEY = 'invitation_tracking_session_v1';
   const TRACKING_VERSION = '1.0.0';
   const MAX_JOURNEY_EVENTS = 250;
