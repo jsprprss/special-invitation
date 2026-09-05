@@ -100,8 +100,8 @@
 
     releaseWave();
     confettiReleaseTimer = window.setInterval(releaseWave, 400);
-    confettiStopTimer = window.setTimeout(() => window.clearInterval(confettiReleaseTimer), 5000);
-    confettiClearTimer = window.setTimeout(() => { holder.innerHTML = ''; }, 8000);
+    confettiStopTimer = window.setTimeout(() => window.clearInterval(confettiReleaseTimer), 12000);
+    confettiClearTimer = window.setTimeout(() => { holder.innerHTML = ''; }, 15000);
   }
 
   noButton.addEventListener('click', () => {
