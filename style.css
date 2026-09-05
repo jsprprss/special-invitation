@@ -220,3 +220,7 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
   .time-teddy-stage { height: 54px; margin-bottom: 8px; }.time-teddy { --time-scale: .78; }
   .confirmation-teddy-stage { height: 60px; margin-top: 12px; }.confirmation-teddy { --confirmation-scale: .78; }
 }
+
+
+/* One line-height of separation between the celebration paragraphs. */
+.celebration-message { display: grid; gap: 1.55rem; }
