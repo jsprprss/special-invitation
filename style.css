@@ -73,7 +73,7 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .celebration-card { padding-block: 70px; }
 
 .celebration-card > :not(.celebration-teddy) { position: relative; z-index: 1; }
-.celebration-teddy { --teddy-scale: 1; position: absolute; z-index: 0; left: clamp(4px, 3vw, 24px); bottom: -42px; width: 91px; height: 121px; transform-origin: 50% 100%; animation: teddy-dance 1.15s ease-in-out infinite; filter: drop-shadow(0 -4px 6px rgba(75, 50, 119, .1)); }
+.celebration-teddy { --teddy-scale: 1; position: absolute; z-index: 0; left: clamp(4px, 3vw, 24px); bottom: -42px; width: 91px; height: 121px; transform-origin: 50% 100%; animation: teddy-dance .82s cubic-bezier(.3, .05, .32, 1.22) infinite; filter: drop-shadow(0 -4px 6px rgba(75, 50, 119, .1)); }
 .celebration-teddy-head { position: absolute; z-index: 3; top: 16px; left: 8px; width: 76px; height: 70px; border-radius: 48% 48% 44% 44%; background: #a98ad4; box-shadow: inset 0 -6px 0 rgba(75, 50, 119, .07); }
 .celebration-teddy-ear { position: absolute; z-index: 2; top: 5px; width: 33px; height: 33px; border-radius: 50%; background: #9270c2; }
 .celebration-teddy-ear::after { position: absolute; inset: 8px; border-radius: 50%; background: #c9b7e4; content: ""; }
@@ -85,13 +85,28 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .celebration-teddy-muzzle { position: absolute; left: 24px; bottom: 11px; width: 28px; height: 20px; border-radius: 50%; background: #dfd3ef; }
 .celebration-teddy-nose { position: absolute; top: 5px; left: 10px; width: 9px; height: 6px; border-radius: 55% 55% 65% 65%; background: #5a3d83; }
 .celebration-teddy-nose::after { position: absolute; top: 6px; left: 4px; width: 2px; height: 6px; border-radius: 2px; background: #5a3d83; content: ""; }
-.celebration-teddy-body { position: absolute; z-index: 1; bottom: -4px; left: 18px; width: 57px; height: 50px; border-radius: 46% 46% 28% 28%; background: #9472c5; }
+.celebration-teddy-body { position: absolute; z-index: 1; bottom: -4px; left: 18px; width: 57px; height: 50px; border-radius: 46% 46% 28% 28%; background: #9472c5; animation: teddy-shimmy .41s ease-in-out infinite alternate; }
+.celebration-teddy-head { animation: teddy-head-bop .82s ease-in-out infinite; }
+@keyframes teddy-shimmy { from { transform: rotate(-5deg) scaleX(.94); } to { transform: rotate(5deg) scaleX(1.06); } }
+@keyframes teddy-head-bop { 0%, 100% { transform: rotate(-3deg); } 45% { transform: rotate(5deg) translateY(-3px); } 70% { transform: rotate(-5deg); } }
 .celebration-teddy-arm { position: absolute; z-index: 2; top: 69px; width: 19px; height: 51px; border-radius: 999px; background: #a98ad4; transform-origin: 50% 7px; }
-.celebration-teddy-arm-left { left: 14px; transform: rotate(40deg); animation: teddy-wave-left 1.15s ease-in-out infinite; }
-.celebration-teddy-arm-right { right: 13px; transform: rotate(-40deg); animation: teddy-wave-right 1.15s ease-in-out infinite; }
-@keyframes teddy-dance { 0%, 100% { transform: translateY(0) rotate(-4deg) scale(var(--teddy-scale)); } 50% { transform: translateY(-9px) rotate(5deg) scale(var(--teddy-scale)); } }
-@keyframes teddy-wave-left { 0%, 100% { transform: rotate(34deg); } 50% { transform: rotate(70deg); } }
-@keyframes teddy-wave-right { 0%, 100% { transform: rotate(-34deg); } 50% { transform: rotate(-70deg); } }
+.celebration-teddy-arm-left { left: 14px; transform: rotate(40deg); animation: teddy-wave-left .55s ease-in-out infinite; }
+.celebration-teddy-arm-right { right: 13px; transform: rotate(-40deg); animation: teddy-wave-right .55s ease-in-out infinite; }
+@keyframes teddy-dance {
+  0%, 100% { transform: translate(0, 0) rotate(-10deg) scale(var(--teddy-scale)); }
+  20% { transform: translate(6px, -13px) rotate(11deg) scale(var(--teddy-scale)); }
+  45% { transform: translate(-5px, -20px) rotate(-12deg) scale(var(--teddy-scale)); }
+  68% { transform: translate(7px, -10px) rotate(10deg) scale(var(--teddy-scale)); }
+  84% { transform: translate(-3px, -16px) rotate(-8deg) scale(var(--teddy-scale)); }
+}
+@keyframes teddy-wave-left {
+  0%, 100% { transform: rotate(28deg) translateY(0); }
+  50% { transform: rotate(106deg) translateY(-5px); }
+}
+@keyframes teddy-wave-right {
+  0%, 100% { transform: rotate(-28deg) translateY(0); }
+  50% { transform: rotate(-106deg) translateY(-5px); }
+}
 @media (max-width: 360px) { .celebration-teddy { --teddy-scale: .78; left: -5px; bottom: -48px; transform-origin: bottom left; } }
 
 .celebration-mark, .confirmation-icon { display: grid; width: 60px; height: 60px; margin: 0 auto 22px; place-items: center; border-radius: 20px; color: var(--purple); background: var(--lavender); font-size: 1.8rem; transform: rotate(12deg); }
