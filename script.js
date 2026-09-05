@@ -1,5 +1,5 @@
 (() => {
-  const state = { selectedDate: null, selectedTime: null, noClickCount: 0 };
+  const state = { selectedDate: null, selectedTime: null, selectedActivity: '', noClickCount: 0 };
   const noMessages = ["Sure ka? 🥺", "Pag-isipan mo ulit 😭", "Please? 🥹", "One more chance?", "Say yes? 💜"];
   const noScales = [1, .82, .66, .52, .41, .34];
   const yesScales = [1, 1.08, 1.17, 1.28, 1.4, 1.5];
@@ -16,6 +16,8 @@
   const noMessage = document.getElementById('no-message');
   const dateContinue = document.getElementById('date-continue');
   const timeContinue = document.getElementById('time-continue');
+  const activityInput = document.getElementById('activity-input');
+  const activityContinue = document.getElementById('activity-continue');
   const calendarDays = document.getElementById('calendar-days');
   const monthLabel = document.getElementById('month-label');
 
@@ -144,7 +146,13 @@
     });
   });
 
-  timeContinue.addEventListener('click', () => {
+  timeContinue.addEventListener('click', () => showScreen('activity-screen'));
+
+  activityInput.addEventListener('input', () => {
+    state.selectedActivity = activityInput.value.trim();
+    activityContinue.disabled = state.selectedActivity.length === 0;
+  });
+  activityContinue.addEventListener('click', () => {
     document.getElementById('confirmed-date').textContent = state.selectedDate.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
     document.getElementById('confirmed-time').textContent = state.selectedTime;
     showScreen('confirmation-screen');
