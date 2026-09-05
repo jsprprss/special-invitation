@@ -55,6 +55,7 @@
       button.type = 'button';
       button.className = 'calendar-day';
       button.textContent = day;
+      button.dataset.date = dateKey(date);
       button.setAttribute('aria-label', date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' }));
       if (date < today) button.disabled = true;
       if (isSameDay(date, today)) button.classList.add('today');
