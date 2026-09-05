@@ -61,7 +61,7 @@
 
       <section class="screen" id="date-screen" aria-labelledby="date-title" hidden>
         <div class="card planner-card">
-          <span class="step">01 / 02</span>
+          <span class="step">01 / 03</span>
           <h1 id="date-title">When are you free? <span aria-hidden="true">📅</span></h1>
           <p class="helper">Pick a day that feels good.</p>
           <div class="date-teddy-stage" aria-hidden="true">
@@ -87,7 +87,7 @@
 
       <section class="screen" id="time-screen" aria-labelledby="time-title" hidden>
         <div class="card planner-card time-card">
-          <span class="step">02 / 02</span>
+          <span class="step">02 / 03</span>
           <h1 id="time-title">What time works for you? <span aria-hidden="true">⏰</span></h1>
           <p class="helper">Which time feels best for you?</p>
           <div class="time-teddy-stage" aria-hidden="true">
@@ -109,6 +109,28 @@
             <button type="button" class="time-option">7:00 PM</button>
           </div>
           <button class="button continue-button" id="time-continue" type="button" disabled>Continue <span aria-hidden="true">→</span></button>
+        </div>
+      </section>
+
+      <section class="screen" id="activity-screen" aria-labelledby="activity-title" hidden>
+        <div class="card planner-card activity-card">
+          <span class="step">03 / 03</span>
+          <h1 id="activity-title">May gusto ka bang gawin muna natin, may activity ka bang naiisip, o may lugar kang gustong puntahan bago tayo kumain?</h1>
+          <p class="helper">Tell me what sounds fun to you.</p>
+          <div class="activity-teddy-stage" aria-hidden="true">
+            <div class="activity-teddy">
+              <span class="activity-teddy-ear activity-teddy-ear-left"></span><span class="activity-teddy-ear activity-teddy-ear-right"></span>
+              <span class="activity-teddy-head">
+                <span class="activity-teddy-eye activity-teddy-eye-left"></span><span class="activity-teddy-eye activity-teddy-eye-right"></span>
+                <span class="activity-teddy-muzzle"><span class="activity-teddy-nose"></span><span class="activity-teddy-smile"></span></span>
+              </span>
+              <span class="activity-teddy-paw"></span>
+            </div>
+            <span class="activity-question">?</span>
+          </div>
+          <label class="sr-only" for="activity-input">Your activity idea</label>
+          <input class="activity-input" id="activity-input" type="text" maxlength="160" autocomplete="off" placeholder="Type your activity or place idea…" />
+          <button class="button continue-button" id="activity-continue" type="button" disabled>Continue <span aria-hidden="true">→</span></button>
         </div>
       </section>
 
