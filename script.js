@@ -71,7 +71,9 @@
       for (let i = 0; i < 8; i += 1) {
         const piece = document.createElement('i');
         piece.className = 'confetti-piece';
-        piece.style.left = `${5 + ((i * 13 + index * 7) % 90)}%`;
+        const lanes = [4, 9, 14, 86, 91, 96];
+        piece.style.left = `${lanes[(i + index) % lanes.length]}%`;
+        piece.style.top = `${8 + ((i * 11 + index * 7) % 78)}%`;
         piece.style.background = color;
         piece.style.setProperty('--x', `${(i - 3) * 16}px`);
         piece.style.animationDelay = `${(i % 4) * 45}ms`;
