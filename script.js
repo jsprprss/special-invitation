@@ -6,6 +6,9 @@
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   let viewDate = new Date(today.getFullYear(), today.getMonth(), 1);
+  let confettiReleaseTimer = null;
+  let confettiStopTimer = null;
+  let confettiClearTimer = null;
 
   const screens = document.querySelectorAll('.screen');
   const noButton = document.getElementById('no-button');
@@ -66,20 +69,36 @@
 
   function throwConfetti() {
     const holder = document.getElementById('confetti');
+    const colors = ['#7654b8', '#b79adc', '#4b3277', '#d8c8ed'];
+    let wave = 0;
+
+    window.clearInterval(confettiReleaseTimer);
+    window.clearTimeout(confettiStopTimer);
+    window.clearTimeout(confettiClearTimer);
     holder.innerHTML = '';
-    ['#7654b8', '#b79adc', '#4b3277', '#d8c8ed'].forEach((color, index) => {
-      for (let i = 0; i < 8; i += 1) {
+
+    const releaseWave = () => {
+      colors.forEach((color, index) => {
         const piece = document.createElement('i');
+        const fromLeft = index % 2 === 0;
+        const laneOffset = (wave * 7 + index * 4) % 10;
         piece.className = 'confetti-piece';
-        const lanes = [4, 9, 14, 86, 91, 96];
-        piece.style.left = `${lanes[(i + index) % lanes.length]}%`;
-        piece.style.top = `${8 + ((i * 11 + index * 7) % 78)}%`;
+        piece.style.left = (fromLeft ? 4 + laneOffset : 86 + laneOffset) + '%';
+        piece.style.top = (-14 - index * 7) + 'px';
         piece.style.background = color;
-        piece.style.setProperty('--x', `${(i - 3) * 16}px`);
-        piece.style.animationDelay = `${(i % 4) * 45}ms`;
+        piece.style.setProperty('--drift', (fromLeft ? -14 - index * 4 : 14 + index * 4) + 'px');
+        piece.style.setProperty('--fall', (150 + (index % 3) * 20) + 'px');
+        piece.style.setProperty('--spin', (fromLeft ? -220 - index * 35 : 220 + index * 35) + 'deg');
+        piece.style.animationDelay = (index * 45) + 'ms';
         holder.append(piece);
-      }
-    });
+      });
+      wave += 1;
+    };
+
+    releaseWave();
+    confettiReleaseTimer = window.setInterval(releaseWave, 400);
+    confettiStopTimer = window.setTimeout(() => window.clearInterval(confettiReleaseTimer), 5000);
+    confettiClearTimer = window.setTimeout(() => { holder.innerHTML = ''; }, 8000);
   }
 
   noButton.addEventListener('click', () => {
