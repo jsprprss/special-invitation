@@ -707,3 +707,114 @@ h1 {
     animation: none !important;
   }
 }
+
+
+/* Subtle background-only star shimmer. */
+.star-field {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  contain: strict;
+  pointer-events: none;
+  user-select: none;
+}
+
+.star-field::before,
+.star-field::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  color: rgba(255, 249, 255, .76);
+  font-family: Georgia, "Times New Roman", serif;
+  line-height: 1;
+  pointer-events: none;
+  will-change: opacity, filter;
+}
+
+.star-field::before {
+  content: "✦";
+  font-size: 9px;
+  text-shadow:
+    8vw 13vh 0 rgba(255, 249, 255, .84),
+    22vw 31vh 0 rgba(228, 205, 255, .68),
+    39vw 10vh 0 rgba(255, 249, 255, .58),
+    54vw 24vh 0 rgba(220, 192, 255, .72),
+    71vw 12vh 0 rgba(255, 249, 255, .76),
+    88vw 35vh 0 rgba(224, 199, 255, .62),
+    14vw 63vh 0 rgba(235, 216, 255, .7),
+    33vw 76vh 0 rgba(255, 249, 255, .62),
+    61vw 68vh 0 rgba(226, 202, 255, .72),
+    82vw 82vh 0 rgba(255, 249, 255, .72),
+    95vw 59vh 0 rgba(220, 192, 255, .58);
+  animation: star-twinkle-one 4.8s ease-in-out infinite;
+}
+
+.star-field::after {
+  content: "✧";
+  color: rgba(232, 213, 255, .7);
+  font-size: 7px;
+  text-shadow:
+    16vw 21vh 0 rgba(229, 207, 255, .66),
+    31vw 47vh 0 rgba(255, 249, 255, .68),
+    47vw 16vh 0 rgba(224, 198, 255, .58),
+    64vw 42vh 0 rgba(255, 249, 255, .7),
+    78vw 27vh 0 rgba(229, 207, 255, .62),
+    92vw 14vh 0 rgba(255, 249, 255, .64),
+    7vw 84vh 0 rgba(225, 201, 255, .58),
+    43vw 88vh 0 rgba(255, 249, 255, .64),
+    69vw 79vh 0 rgba(229, 207, 255, .68),
+    89vw 67vh 0 rgba(255, 249, 255, .58);
+  animation: star-twinkle-two 6.2s ease-in-out -2.1s infinite;
+}
+
+@keyframes star-twinkle-one {
+  0%, 100% {
+    opacity: .32;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, .15));
+  }
+  48% {
+    opacity: .82;
+    filter: drop-shadow(0 0 4px rgba(232, 210, 255, .72));
+  }
+  72% {
+    opacity: .5;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, .4));
+  }
+}
+
+@keyframes star-twinkle-two {
+  0%, 100% {
+    opacity: .24;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, .12));
+  }
+  38% {
+    opacity: .62;
+    filter: drop-shadow(0 0 3px rgba(231, 208, 255, .62));
+  }
+  68% {
+    opacity: .36;
+    filter: drop-shadow(0 0 2px rgba(255, 255, 255, .32));
+  }
+}
+
+@media (max-width: 599px) {
+  .star-field::before {
+    font-size: 8px;
+  }
+
+  .star-field::after {
+    font-size: 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .star-field::before,
+  .star-field::after {
+    animation: none !important;
+    opacity: .46;
+    filter: none;
+  }
+}
