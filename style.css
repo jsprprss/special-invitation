@@ -223,4 +223,6 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 
 
 /* One line-height of separation between the celebration paragraphs. */
-.celebration-message { display: grid; gap: 1.55rem; }
+.celebration-message { display: block; }
+.celebration-message p { margin: 0 auto; }
+.celebration-message-spacer { height: 1.55rem; }
