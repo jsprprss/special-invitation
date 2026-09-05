@@ -111,8 +111,8 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 
 .celebration-mark, .confirmation-icon { display: grid; width: 60px; height: 60px; margin: 0 auto 22px; place-items: center; border-radius: 20px; color: var(--purple); background: var(--lavender); font-size: 1.8rem; transform: rotate(12deg); }
 .celebration-card p { max-width: 315px; margin: 0 auto; }
-.confetti { pointer-events: none; }
-.confetti-piece { position: absolute; top: -15px; width: 9px; height: 14px; border-radius: 4px; background: var(--purple); animation: fall 1.5s cubic-bezier(.1,.75,.5,1) forwards; }
+.confetti { position: absolute; inset: 0; z-index: 2; overflow: hidden; pointer-events: none; }
+.confetti-piece { position: absolute; width: 9px; height: 14px; border-radius: 4px; background: var(--purple); animation: confetti-drift 2.8s ease-in-out infinite alternate; }
 
 .planner-card { text-align: left; }
 .planner-card h1 { margin: 12px 0 7px; font-size: clamp(2rem, 7vw, 3rem); }
@@ -146,7 +146,10 @@ h1 { margin-bottom: 13px; color: var(--deep-purple); font-family: Georgia, "Time
 .final-button { width: 100%; margin-top: 22px; }
 
 @keyframes enter { from { opacity: 0; transform: translateY(12px) scale(.985); } to { opacity: 1; transform: translateY(0) scale(1); } }
-@keyframes fall { to { transform: translate(var(--x), 600px) rotate(480deg); opacity: 0; } }
+@keyframes confetti-drift {
+  0% { transform: translate(0, 0) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--x), 16px) rotate(145deg); opacity: 1; }
+}
 @media (min-width: 600px) { .time-grid { grid-template-columns: repeat(3, 1fr); } .card { border-radius: 36px; } }
 @media (max-width: 360px) { .card { padding-inline: 22px; } .yes-button { min-width: 130px; } .choice-buttons { gap: 10px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
