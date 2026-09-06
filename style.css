@@ -893,7 +893,12 @@ h1 {
 
 .message-screen {
   width: min(100%, 700px);
+  max-height: calc(100vh - 48px);
+  max-height: calc(100dvh - 48px);
   padding-block: 10px;
+  overflow-y: auto;
+  overscroll-behavior-y: contain;
+  -webkit-overflow-scrolling: touch;
 }
 
 .message-card {
