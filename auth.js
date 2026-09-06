@@ -10,6 +10,7 @@
   const pageShell = document.querySelector('.page-shell');
   const screens = document.querySelectorAll('.screen');
   const finalButton = document.getElementById('final-button');
+  const loginScreen = document.getElementById('login-screen');
   const loginForm = document.getElementById('login-form');
   const usernameInput = document.getElementById('login-username');
   const passwordInput = document.getElementById('login-password');
@@ -21,6 +22,7 @@
   if (
     !pageShell ||
     !finalButton ||
+    !loginScreen ||
     !loginForm ||
     !usernameInput ||
     !passwordInput ||
@@ -30,6 +32,38 @@
     !messageBody
   ) {
     return;
+  }
+
+  const mobileLoginMedia = window.matchMedia('(max-width: 599px)');
+  const visualViewport = window.visualViewport;
+
+  function syncMobileLoginViewport() {
+    if (!mobileLoginMedia.matches || !visualViewport) {
+      loginScreen.style.removeProperty('--login-viewport-height');
+      loginScreen.classList.remove('mobile-keyboard-open');
+      return;
+    }
+
+    const visibleHeight = Math.round(visualViewport.height);
+    const loginInputFocused =
+      document.activeElement === usernameInput ||
+      document.activeElement === passwordInput;
+
+    loginScreen.style.setProperty('--login-viewport-height', `${visibleHeight}px`);
+    loginScreen.classList.toggle(
+      'mobile-keyboard-open',
+      loginInputFocused && visibleHeight < window.innerHeight - 80
+    );
+  }
+
+  if (visualViewport) {
+    visualViewport.addEventListener('resize', syncMobileLoginViewport);
+    usernameInput.addEventListener('focus', syncMobileLoginViewport);
+    passwordInput.addEventListener('focus', syncMobileLoginViewport);
+    loginForm.addEventListener('focusout', () => {
+      window.requestAnimationFrame(syncMobileLoginViewport);
+    });
+    syncMobileLoginViewport();
   }
 
   function getSessionValue(key) {

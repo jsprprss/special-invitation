@@ -1004,6 +1004,18 @@ h1 {
 }
 
 @media (max-width: 599px) {
+  .login-screen {
+    max-height: calc(100vh - max(14px, env(safe-area-inset-top)) - max(14px, env(safe-area-inset-bottom)));
+    max-height: calc(var(--login-viewport-height, 100dvh) - max(14px, env(safe-area-inset-top)) - max(14px, env(safe-area-inset-bottom)));
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .login-screen.mobile-keyboard-open {
+    align-self: start;
+  }
+
   .login-card {
     padding-block: 35px;
   }
