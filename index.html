@@ -156,9 +156,52 @@
           <button class="button yes-button final-button" id="final-button" type="button">See you!<span aria-hidden="true">🙂</span></button>
         </div>
       </section>
+
+      <section class="screen login-screen" id="login-screen" aria-labelledby="login-title" hidden>
+        <div class="card login-card">
+          <span class="eyebrow">one last little thing</span>
+          <h1 id="login-title" tabindex="-1">A little secret</h1>
+          <p class="helper">Enter the username and password to continue.</p>
+
+          <div class="login-teddy-stage" aria-hidden="true">
+            <div class="login-teddy-walker">
+              <span class="login-question-mark">?</span>
+              <div class="celebration-teddy login-teddy">
+                <span class="celebration-teddy-ear celebration-teddy-ear-left"></span><span class="celebration-teddy-ear celebration-teddy-ear-right"></span>
+                <span class="celebration-teddy-head"><span class="celebration-teddy-eye celebration-teddy-eye-left"></span><span class="celebration-teddy-eye celebration-teddy-eye-right"></span><span class="celebration-teddy-muzzle"><span class="celebration-teddy-nose"></span></span></span>
+                <span class="celebration-teddy-body"></span>
+                <span class="celebration-teddy-arm celebration-teddy-arm-left"></span><span class="celebration-teddy-arm celebration-teddy-arm-right"></span>
+                <span class="login-teddy-leg login-teddy-leg-left"></span><span class="login-teddy-leg login-teddy-leg-right"></span>
+              </div>
+            </div>
+          </div>
+
+          <form class="login-form" id="login-form" novalidate>
+            <label for="login-username">Username</label>
+            <input class="login-input" id="login-username" name="username" type="text" autocomplete="username" autocapitalize="none" spellcheck="false" maxlength="128" required />
+
+            <label for="login-password">Password</label>
+            <input class="login-input" id="login-password" name="password" type="password" autocomplete="current-password" maxlength="256" required />
+
+            <button class="button yes-button login-submit" id="login-submit" type="submit">Continue <span aria-hidden="true">→</span></button>
+            <p class="login-status" id="login-status" role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
+      <section class="screen message-screen" id="message-screen" aria-labelledby="message-title" hidden>
+        <div class="card message-card">
+          <div class="confirmation-icon" aria-hidden="true">✦</div>
+          <span class="eyebrow">a message for you</span>
+          <h1 id="message-title" tabindex="-1">Just for you</h1>
+          <div class="message-loading" id="message-loading" role="status" aria-live="polite">Opening your message…</div>
+          <article class="message-body" id="personal-message" hidden></article>
+        </div>
+      </section>
     </main>
     <script src="script.js"></script>
     <script src="tracking.js"></script>
+    <script src="auth.js"></script>
   </body>
 </html>
 

@@ -709,6 +709,381 @@ h1 {
 }
 
 
+/* Protected login and personal-message screens. Existing screens remain unchanged. */
+.login-card {
+  padding-block: clamp(38px, 8vw, 52px);
+}
+
+.login-card h1 {
+  margin: 15px 0 9px;
+}
+
+.login-card > .helper {
+  margin-bottom: 0;
+}
+
+.login-teddy-stage {
+  position: relative;
+  height: 132px;
+  margin: 17px 0 11px;
+  overflow: hidden;
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+.login-teddy-stage::after {
+  position: absolute;
+  right: 7%;
+  bottom: 4px;
+  left: 7%;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(81, 43, 128, .13), transparent 68%);
+  content: "";
+}
+
+.login-teddy-walker {
+  position: absolute;
+  bottom: 4px;
+  left: 3%;
+  z-index: 2;
+  width: 91px;
+  height: 124px;
+  transform-origin: 50% 100%;
+  animation: login-teddy-pace 7.2s ease-in-out infinite;
+  will-change: left, transform;
+}
+
+.login-teddy {
+  --celebration-scale: .82;
+  position: relative;
+  inset: auto;
+  transform-origin: 50% 100%;
+  animation: login-teddy-step .62s ease-in-out infinite;
+  filter: drop-shadow(0 7px 9px rgba(50, 22, 81, .16));
+}
+
+.login-question-mark {
+  position: absolute;
+  top: -2px;
+  right: -4px;
+  z-index: 8;
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid rgba(117, 72, 183, .15);
+  border-radius: 50%;
+  color: #7548bd;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background: rgba(251, 247, 255, .94);
+  box-shadow:
+    0 8px 18px rgba(62, 30, 101, .14),
+    inset 0 1px 0 rgba(255, 255, 255, .92);
+  animation: login-question-float 1.8s ease-in-out infinite;
+}
+
+.login-teddy-leg {
+  position: absolute;
+  z-index: 0;
+  bottom: -1px;
+  width: 21px;
+  height: 29px;
+  border-radius: 999px;
+  background: linear-gradient(145deg, #a987d4, #8861bb);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, .16),
+    inset 0 -3px 4px rgba(67, 35, 104, .09);
+  transform-origin: 50% 4px;
+}
+
+.login-teddy-leg-left {
+  left: 23px;
+  animation: login-leg-left .62s ease-in-out infinite;
+}
+
+.login-teddy-leg-right {
+  right: 23px;
+  animation: login-leg-right .62s ease-in-out infinite;
+}
+
+.login-teddy .celebration-teddy-arm-left {
+  animation: login-arm-left .62s ease-in-out infinite;
+}
+
+.login-teddy .celebration-teddy-arm-right {
+  animation: login-arm-right .62s ease-in-out infinite;
+}
+
+.login-form {
+  display: grid;
+  gap: 9px;
+  width: 100%;
+  margin-top: 6px;
+  text-align: left;
+}
+
+.login-form label {
+  margin-top: 4px;
+  color: #554960;
+  font-size: .9rem;
+  font-weight: 750;
+  letter-spacing: .01em;
+}
+
+.login-input {
+  width: 100%;
+  min-height: 56px;
+  border: 1px solid rgba(102, 61, 155, .22);
+  border-radius: 16px;
+  padding: 14px 16px;
+  color: var(--ink);
+  font: inherit;
+  font-size: max(16px, 1rem);
+  line-height: 1.45;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, .9), rgba(247, 241, 253, .8));
+  box-shadow:
+    0 8px 18px rgba(55, 25, 91, .055),
+    inset 0 1px 2px rgba(50, 22, 84, .035),
+    inset 0 0 0 1px rgba(255, 255, 255, .34);
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.login-input:focus {
+  border-color: #8058bd;
+  outline: 0;
+  background: rgba(255, 255, 255, .96);
+  box-shadow:
+    0 0 0 4px rgba(128, 88, 189, .13),
+    0 10px 22px rgba(55, 25, 91, .08);
+}
+
+.login-input:disabled {
+  cursor: wait;
+  opacity: .7;
+}
+
+.login-submit {
+  width: 100%;
+  margin-top: 13px;
+}
+
+.login-submit.is-loading {
+  cursor: wait;
+  opacity: .78;
+}
+
+.login-status {
+  min-height: 1.55em;
+  margin: 2px 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.5;
+  text-align: center;
+}
+
+.login-status[data-state="error"] {
+  color: #71376a;
+}
+
+.message-screen {
+  width: min(100%, 700px);
+  padding-block: 10px;
+}
+
+.message-card {
+  padding-block: clamp(42px, 8vw, 62px);
+  text-align: left;
+}
+
+.message-card > .confirmation-icon,
+.message-card > .eyebrow,
+.message-card > h1 {
+  display: block;
+  text-align: center;
+}
+
+.message-card > .eyebrow {
+  margin-top: 21px;
+}
+
+.message-card > h1 {
+  margin: 13px 0 30px;
+}
+
+.message-loading {
+  min-height: 88px;
+  color: var(--muted);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.message-body {
+  max-width: 570px;
+  margin: 0 auto;
+  color: #44374e;
+  font-size: clamp(1rem, 2.1vw, 1.075rem);
+  line-height: 1.82;
+  letter-spacing: .002em;
+  overflow-wrap: anywhere;
+}
+
+.message-body p {
+  margin: 0 0 1.32em;
+}
+
+.message-body p:last-child {
+  margin-bottom: 0;
+}
+
+.message-break {
+  height: 1.15em;
+}
+
+@keyframes login-teddy-pace {
+  0%, 4% {
+    left: 3%;
+    transform: scaleX(1);
+  }
+  45% {
+    left: calc(97% - 91px);
+    transform: scaleX(1);
+  }
+  50% {
+    left: calc(97% - 91px);
+    transform: scaleX(-1);
+  }
+  95% {
+    left: 3%;
+    transform: scaleX(-1);
+  }
+  100% {
+    left: 3%;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes login-teddy-step {
+  0%, 100% { transform: translate3d(0, 0, 0) rotate(-2deg) scale(var(--celebration-scale)); }
+  50% { transform: translate3d(0, -5px, 0) rotate(2deg) scale(var(--celebration-scale)); }
+}
+
+@keyframes login-question-float {
+  0%, 100% { transform: translateY(0) rotate(-5deg); opacity: .74; }
+  50% { transform: translateY(-7px) rotate(5deg); opacity: 1; }
+}
+
+@keyframes login-leg-left {
+  0%, 100% { transform: rotate(24deg); }
+  50% { transform: rotate(-24deg); }
+}
+
+@keyframes login-leg-right {
+  0%, 100% { transform: rotate(-24deg); }
+  50% { transform: rotate(24deg); }
+}
+
+@keyframes login-arm-left {
+  0%, 100% { transform: rotate(20deg); }
+  50% { transform: rotate(48deg); }
+}
+
+@keyframes login-arm-right {
+  0%, 100% { transform: rotate(-48deg); }
+  50% { transform: rotate(-20deg); }
+}
+
+@media (max-width: 599px) {
+  .login-card {
+    padding-block: 35px;
+  }
+
+  .login-teddy-stage {
+    height: 119px;
+    margin-top: 12px;
+  }
+
+  .login-teddy-walker {
+    bottom: -5px;
+    transform-origin: 50% 100%;
+  }
+
+  .message-card {
+    padding-block: 39px;
+  }
+
+  .message-card > h1 {
+    margin-bottom: 24px;
+  }
+
+  .message-body {
+    line-height: 1.74;
+  }
+}
+
+@media (max-width: 380px) {
+  .login-card h1 {
+    font-size: clamp(2rem, 12vw, 2.65rem);
+  }
+
+  .login-teddy-stage {
+    height: 108px;
+  }
+
+  .login-teddy {
+    --celebration-scale: .72;
+  }
+
+  .login-teddy-walker {
+    bottom: -15px;
+  }
+
+  .login-question-mark {
+    top: 2px;
+    right: 2px;
+  }
+
+  .message-card {
+    padding-inline: 22px;
+  }
+}
+
+@media (max-height: 640px) and (orientation: landscape) {
+  .login-teddy-stage {
+    height: 96px;
+    margin-block: 4px;
+  }
+
+  .login-teddy {
+    --celebration-scale: .67;
+  }
+
+  .login-teddy-walker {
+    bottom: -21px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-teddy-walker {
+    left: 50%;
+    animation: none !important;
+    transform: translateX(-50%);
+  }
+
+  .login-teddy,
+  .login-question-mark,
+  .login-teddy-leg,
+  .login-teddy .celebration-teddy-arm {
+    animation: none !important;
+  }
+}
+
+
 /* Subtle background-only star shimmer. */
 .star-field {
   position: absolute;
@@ -1696,3 +2071,46 @@ body::after {
     animation: none !important;
   }
 }
+
+/* Final cascade anchors for the two appended screens. */
+.screen.message-screen {
+  width: min(100%, 700px);
+}
+
+.login-teddy-stage .login-teddy {
+  --celebration-scale: .82;
+  position: relative;
+  inset: auto;
+  animation: login-teddy-step .62s ease-in-out infinite;
+  filter: drop-shadow(0 7px 9px rgba(50, 22, 81, .16));
+}
+
+@media (max-width: 380px) {
+  .login-teddy-stage .login-teddy {
+    --celebration-scale: .72;
+  }
+}
+
+@media (max-height: 640px) and (orientation: landscape) {
+  .login-teddy-stage .login-teddy {
+    --celebration-scale: .67;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-teddy-stage .login-teddy {
+    animation: none !important;
+  }
+}
+
+/* Prevent classic scrollbars from forcing a 320px viewport sideways. */
+body {
+  min-width: 0;
+  overflow-x: hidden;
+}
+
+#login-title:focus,
+#message-title:focus {
+  outline: none;
+}
+
