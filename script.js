@@ -20,6 +20,115 @@
   const activityContinue = document.getElementById('activity-continue');
   const calendarDays = document.getElementById('calendar-days');
   const monthLabel = document.getElementById('month-label');
+  const questionCard = document.querySelector('#question-screen .question-card');
+
+  function moveNoButton(stage) {
+    if (!questionCard) return;
+
+    const scale = noScales[stage];
+    const cardRect = questionCard.getBoundingClientRect();
+    const buttonWidth = noButton.offsetWidth * scale;
+    const buttonHeight = noButton.offsetHeight * scale;
+    const inset = Math.max(14, Math.min(26, cardRect.width * .045));
+    const viewport = window.visualViewport;
+    const viewportLeft = viewport ? viewport.offsetLeft : 0;
+    const viewportTop = viewport ? viewport.offsetTop : 0;
+    const viewportRight = viewportLeft + (viewport ? viewport.width : window.innerWidth);
+    const viewportBottom = viewportTop + (viewport ? viewport.height : window.innerHeight);
+    const safeLeft = Math.max(cardRect.left + inset, viewportLeft + inset);
+    const safeTop = Math.max(cardRect.top + inset, viewportTop + inset);
+    const safeRight = Math.min(cardRect.right - inset, viewportRight - inset);
+    const safeBottom = Math.min(cardRect.bottom - inset, viewportBottom - inset);
+    const availableWidth = Math.max(0, safeRight - safeLeft - buttonWidth);
+    const availableHeight = Math.max(0, safeBottom - safeTop - buttonHeight);
+    const currentRect = noButton.getBoundingClientRect();
+    const currentCenter = {
+      x: currentRect.left + currentRect.width / 2,
+      y: currentRect.top + currentRect.height / 2,
+    };
+    const yesScale = yesScales[stage];
+    const currentYesRect = yesButton.getBoundingClientRect();
+    const yesCenterX = currentYesRect.left + currentYesRect.width / 2;
+    const yesCenterY = currentYesRect.top + currentYesRect.height / 2;
+    const futureYesWidth = yesButton.offsetWidth * yesScale;
+    const futureYesHeight = yesButton.offsetHeight * yesScale;
+    const futureYesRect = {
+      left: yesCenterX - futureYesWidth / 2,
+      right: yesCenterX + futureYesWidth / 2,
+      top: yesCenterY - futureYesHeight / 2,
+      bottom: yesCenterY + futureYesHeight / 2,
+    };
+    const textRects = (element) => {
+      if (!element) return [];
+      const range = document.createRange();
+      range.selectNodeContents(element);
+      const ranges = Array.from(range.getClientRects()).filter((rect) => (
+        rect.width > 0 && rect.height > 0
+      ));
+      return ranges.length ? ranges : [element.getBoundingClientRect()];
+    };
+    const protectedRects = [
+      futureYesRect,
+      ...textRects(document.getElementById('question-title')),
+      ...textRects(noMessage),
+      ...textRects(questionCard.querySelector('.eyebrow')),
+      questionCard.querySelector('.teddy-peek').getBoundingClientRect(),
+    ];
+    const fractions = [0, .16, .33, .5, .67, .84, 1];
+    const candidates = [];
+
+    fractions.forEach((row) => {
+      fractions.forEach((column) => {
+        const left = safeLeft + availableWidth * column;
+        const top = safeTop + availableHeight * row;
+        const candidate = {
+          left,
+          top,
+          right: left + buttonWidth,
+          bottom: top + buttonHeight,
+          centerX: left + buttonWidth / 2,
+          centerY: top + buttonHeight / 2,
+        };
+        const overlapsContent = protectedRects.some((rect) => (
+          candidate.left < rect.right + 8 &&
+          candidate.right > rect.left - 8 &&
+          candidate.top < rect.bottom + 8 &&
+          candidate.bottom > rect.top - 8
+        ));
+        const distance = Math.hypot(
+          candidate.centerX - currentCenter.x,
+          candidate.centerY - currentCenter.y
+        );
+
+        if (!overlapsContent && distance > 36) {
+          candidates.push({ ...candidate, distance });
+        }
+      });
+    });
+
+    if (!candidates.length) {
+      noButton.style.transform = `scale(${scale})`;
+      return;
+    }
+
+    candidates.sort((a, b) => b.distance - a.distance);
+    const pool = candidates.slice(0, Math.min(6, candidates.length));
+    const target = pool[(state.noClickCount - 1) % pool.length];
+    const transformValues = getComputedStyle(noButton).transform.match(/matrix(?:3d)?\(([^)]+)\)/);
+    const matrixValues = transformValues
+      ? transformValues[1].split(',').map(Number)
+      : [];
+    const currentMoveX = matrixValues.length === 16
+      ? matrixValues[12]
+      : (matrixValues[4] || 0);
+    const currentMoveY = matrixValues.length === 16
+      ? matrixValues[13]
+      : (matrixValues[5] || 0);
+    const moveX = Math.round(currentMoveX + target.centerX - currentCenter.x);
+    const moveY = Math.round(currentMoveY + target.centerY - currentCenter.y);
+
+    noButton.style.transform = `translate3d(${moveX}px, ${moveY}px, 0) scale(${scale})`;
+  }
 
   function showScreen(id) {
     screens.forEach((screen) => {
@@ -116,8 +225,8 @@
       noMessage.textContent = noMessages[stage - 1];
       noMessage.style.opacity = '1';
       noMessage.style.transform = 'translateY(0)';
+      moveNoButton(stage);
     }, 130);
-    noButton.style.transform = `scale(${noScales[stage]})`;
     noButton.style.opacity = `${Math.max(.56, 1 - stage * .09)}`;
     yesButton.style.transform = `scale(${yesScales[stage]})`;
   });
