@@ -3,6 +3,8 @@
 
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbz4WmBkFJTtJ5qVLCaRz9rJ3xTJvYxgJcB0nASBeuJcDYd-YBRaTrvrJA90pTlcZh96/exec';
   const STORAGE_KEY = 'invitation_tracking_session_v1';
+  const AUTH_STAGE_KEY = 'invitation_auth_stage_v1';
+  const AUTH_EVENT_NAME = 'invitation:journey-event';
   const TRACKING_VERSION = '1.0.0';
   const MAX_JOURNEY_EVENTS = 250;
 
@@ -71,6 +73,17 @@
     }
   }
 
+  function loadAuthStage() {
+    try {
+      const stage = sessionStorage.getItem(AUTH_STAGE_KEY);
+      return stage === 'login' || stage === 'message'
+        ? stage
+        : '';
+    } catch (error) {
+      return '';
+    }
+  }
+
   function saveState() {
     try {
       sessionStorage.setItem(
@@ -117,18 +130,28 @@
   }
 
   let trackingState = loadStoredState();
+  const authStage = loadAuthStage();
+  const isAuthContinuation = Boolean(
+    trackingState &&
+    trackingState.sessionId &&
+    trackingState.status === 'completed' &&
+    authStage
+  );
   const isNewSession =
     !trackingState ||
     !trackingState.sessionId ||
-    trackingState.status === 'completed';
+    (trackingState.status === 'completed' && !isAuthContinuation);
 
   if (isNewSession) {
     trackingState = createState();
   } else {
-    trackingState.currentStep = 'question';
+    trackingState.currentStep = isAuthContinuation
+      ? authStage
+      : 'question';
 
     addJourneyEvent('page_refreshed', {
       previousResponsesRestored: true,
+      restoredStep: trackingState.currentStep,
     });
   }
 
@@ -454,6 +477,26 @@
     });
   }
 
+  const authEventSteps = {
+    login_page_opened: 'login',
+    login_succeeded: 'login',
+    message_page_opened: 'message',
+  };
+
+  document.addEventListener(AUTH_EVENT_NAME, (event) => {
+    const type =
+      event && event.detail && event.detail.type;
+    const step = authEventSteps[type];
+
+    if (!step || trackingState.status !== 'completed') {
+      return;
+    }
+
+    setCurrentStep(step);
+    addJourneyEvent(type, null);
+    sendSnapshot(type);
+  });
+
   window.addEventListener('online', () => {
     sendSnapshot('network_restored');
   });
@@ -481,3 +524,4 @@
     isNewSession ? 'session_started' : 'page_refreshed'
   );
 })();
+
