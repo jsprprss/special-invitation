@@ -11,6 +11,8 @@
   const screens = document.querySelectorAll('.screen');
   const finalButton = document.getElementById('final-button');
   const loginScreen = document.getElementById('login-screen');
+  const loginCard = loginScreen && loginScreen.querySelector('.login-card');
+  const loginCover = document.getElementById('login-cover');
   const loginForm = document.getElementById('login-form');
   const usernameInput = document.getElementById('login-username');
   const passwordInput = document.getElementById('login-password');
@@ -23,6 +25,8 @@
     !pageShell ||
     !finalButton ||
     !loginScreen ||
+    !loginCard ||
+    !loginCover ||
     !loginForm ||
     !usernameInput ||
     !passwordInput ||
@@ -130,7 +134,30 @@
     loginSubmit.classList.toggle('is-loading', isBusy);
   }
 
+  function setLoginCovered(isCovered) {
+    loginCover.hidden = !isCovered;
+    loginCard.classList.toggle('is-covered', isCovered);
+
+    Array.from(loginCard.children).forEach((element) => {
+      if (element === loginCover) {
+        return;
+      }
+
+      element.inert = isCovered;
+      if (isCovered) {
+        element.setAttribute('aria-hidden', 'true');
+      } else {
+        element.removeAttribute('aria-hidden');
+      }
+    });
+
+    usernameInput.tabIndex = isCovered ? -1 : 0;
+    passwordInput.tabIndex = isCovered ? -1 : 0;
+    loginSubmit.tabIndex = isCovered ? -1 : 0;
+  }
+
   function showLogin(options = {}) {
+    setLoginCovered(true);
     setSessionValue(STAGE_KEY, 'login');
     showScreen('login-screen');
     messageBody.hidden = true;
@@ -148,7 +175,7 @@
     }
 
     window.setTimeout(() => {
-      usernameInput.focus({ preventScroll: true });
+      loginCover.focus({ preventScroll: true });
     }, 120);
   }
 
@@ -261,6 +288,13 @@
   finalButton.addEventListener('click', () => {
     setSessionValue(TOKEN_KEY, '');
     showLogin({ track: true });
+  });
+
+  loginCover.addEventListener('click', () => {
+    setLoginCovered(false);
+    window.requestAnimationFrame(() => {
+      usernameInput.focus({ preventScroll: true });
+    });
   });
 
   loginForm.addEventListener('submit', async (event) => {
