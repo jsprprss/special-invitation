@@ -2272,3 +2272,26 @@ body {
 #message-title:focus {
   outline: none;
 }
+
+/* Keep the mobile login scroll area above an open software keyboard. */
+@media (max-width: 599px), (max-width: 1024px) and (pointer: coarse) {
+  .page-shell.login-keyboard-open {
+    position: fixed;
+    top: var(--login-visible-top, 0px);
+    left: 0;
+    right: 0;
+    height: var(--login-visible-height, 100dvh);
+    min-height: 0;
+    grid-template-rows: minmax(0, 1fr);
+    overflow-y: hidden;
+  }
+
+  .login-keyboard-open .login-screen {
+    align-self: start;
+    min-height: 0;
+    max-height: 100%;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+}
