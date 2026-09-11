@@ -40,6 +40,11 @@
 
   const mobileLoginMedia = window.matchMedia('(max-width: 599px)');
   const visualViewport = window.visualViewport;
+  const loginContentAriaHidden = new Map(
+    Array.from(loginCard.children)
+      .filter((element) => element !== loginCover)
+      .map((element) => [element, element.getAttribute('aria-hidden')])
+  );
 
   function syncMobileLoginViewport() {
     if (!mobileLoginMedia.matches || !visualViewport) {
@@ -147,7 +152,12 @@
       if (isCovered) {
         element.setAttribute('aria-hidden', 'true');
       } else {
-        element.removeAttribute('aria-hidden');
+        const originalValue = loginContentAriaHidden.get(element);
+        if (originalValue === null) {
+          element.removeAttribute('aria-hidden');
+        } else {
+          element.setAttribute('aria-hidden', originalValue);
+        }
       }
     });
 
