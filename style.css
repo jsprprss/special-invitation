@@ -762,28 +762,18 @@ h1 {
   font-size: .72rem;
 }
 
-.login-cover:hover .login-cover-sparkle,
-.login-cover:focus-visible .login-cover-sparkle {
-  transform: rotate(18deg) scale(1.08);
-}
-
 .login-cover:focus-visible {
   outline: 3px solid rgba(255, 255, 255, .92);
   outline-offset: -7px;
 }
 
-.login-cover-sparkle {
+.login-cover-teddy-stage {
   display: grid;
-  width: 58px;
-  height: 58px;
+  width: 180px;
+  max-width: 100%;
+  height: 190px;
   place-items: center;
-  border: 1px solid rgba(255, 255, 255, .2);
-  border-radius: 20px;
-  color: #fff;
-  font-size: 1.75rem;
-  background: rgba(255, 255, 255, .13);
-  box-shadow: 0 12px 28px rgba(32, 10, 61, .24);
-  transition: transform .25s ease;
+  pointer-events: none;
 }
 
 .login-card.is-covered > :not(.login-cover) {
@@ -2196,6 +2186,82 @@ body::after {
   }
 }
 
+/* Reuse the existing plush character for the tap-to-open cover. */
+.login-cover .login-cover-teddy {
+  position: relative;
+  inset: auto;
+  display: block;
+  transform-origin: 50% 85%;
+  transform: scale(1.2);
+  animation: cover-teddy-dance 1.25s ease-in-out infinite;
+  filter: drop-shadow(0 12px 10px rgba(28, 9, 48, .24));
+}
+
+.login-cover-teddy .celebration-teddy-eye {
+  top: 29px;
+  width: 10px;
+  height: 7px;
+  border: 2.5px solid #4b3277;
+  border-bottom: 0;
+  border-radius: 9px 9px 0 0;
+  background: none;
+  box-shadow: none;
+  animation: none;
+}
+
+.login-cover-teddy .celebration-teddy-eye::after {
+  display: none;
+}
+
+.login-cover-teddy .celebration-teddy-muzzle::after {
+  width: 13px;
+  height: 7px;
+  border: 0;
+  border-radius: 2px 2px 9px 9px;
+  background: #5a3d83;
+}
+
+.login-cover-teddy .celebration-teddy-arm-left {
+  animation: cover-teddy-cheer-left .625s ease-in-out infinite;
+}
+
+.login-cover-teddy .celebration-teddy-arm-right {
+  animation: cover-teddy-cheer-right .625s ease-in-out infinite;
+}
+
+.login-cover-teddy .login-teddy-leg-left {
+  animation: login-leg-left .625s ease-in-out infinite;
+}
+
+.login-cover-teddy .login-teddy-leg-right {
+  animation: login-leg-right .625s ease-in-out infinite;
+}
+
+@keyframes cover-teddy-dance {
+  0%, 100% { transform: translate3d(-13px, 4px, 0) rotate(-18deg) scale(1.2, 1.12); }
+  25% { transform: translate3d(0, -23px, 0) rotate(8deg) scale(1.16, 1.25); }
+  50% { transform: translate3d(13px, 4px, 0) rotate(18deg) scale(1.2, 1.12); }
+  75% { transform: translate3d(0, -23px, 0) rotate(-8deg) scale(1.16, 1.25); }
+}
+
+@keyframes cover-teddy-cheer-left {
+  0%, 100% { transform: rotate(85deg); }
+  50% { transform: rotate(155deg); }
+}
+
+@keyframes cover-teddy-cheer-right {
+  0%, 100% { transform: rotate(-155deg); }
+  50% { transform: rotate(-85deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .login-cover .login-cover-teddy,
+  .login-cover-teddy .celebration-teddy-arm,
+  .login-cover-teddy .login-teddy-leg {
+    animation: none !important;
+  }
+}
+
 /* Prevent classic scrollbars from forcing a 320px viewport sideways. */
 body {
   min-width: 0;
@@ -2206,4 +2272,3 @@ body {
 #message-title:focus {
   outline: none;
 }
-
