@@ -714,6 +714,82 @@ h1 {
   padding-block: clamp(38px, 8vw, 52px);
 }
 
+.login-cover {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 15px;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: inherit;
+  padding: 32px;
+  color: #fff;
+  font: inherit;
+  font-size: 1rem;
+  font-weight: 750;
+  letter-spacing: .025em;
+  background: linear-gradient(145deg, #6f45ac 0%, #4a267b 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .2);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.login-cover[hidden] {
+  display: none;
+}
+
+.login-cover::before,
+.login-cover::after {
+  position: absolute;
+  color: rgba(255, 255, 255, .58);
+  font-size: 1rem;
+  content: "✦";
+}
+
+.login-cover::before {
+  top: 18%;
+  left: 20%;
+}
+
+.login-cover::after {
+  right: 19%;
+  bottom: 20%;
+  font-size: .72rem;
+}
+
+.login-cover:hover .login-cover-sparkle,
+.login-cover:focus-visible .login-cover-sparkle {
+  transform: rotate(18deg) scale(1.08);
+}
+
+.login-cover:focus-visible {
+  outline: 3px solid rgba(255, 255, 255, .92);
+  outline-offset: -7px;
+}
+
+.login-cover-sparkle {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 20px;
+  color: #fff;
+  font-size: 1.75rem;
+  background: rgba(255, 255, 255, .13);
+  box-shadow: 0 12px 28px rgba(32, 10, 61, .24);
+  transition: transform .25s ease;
+}
+
+.login-card.is-covered > :not(.login-cover) {
+  pointer-events: none;
+}
+
 .login-card h1 {
   margin: 15px 0 9px;
 }
