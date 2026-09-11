@@ -38,8 +38,11 @@
     return;
   }
 
-  const mobileLoginMedia = window.matchMedia('(max-width: 599px)');
+  const mobileLoginMedia = window.matchMedia(
+    '(max-width: 599px), (max-width: 1024px) and (pointer: coarse)'
+  );
   const visualViewport = window.visualViewport;
+  let loginRestingHeight = visualViewport ? visualViewport.height : window.innerHeight;
   const loginContentAriaHidden = new Map(
     Array.from(loginCard.children)
       .filter((element) => element !== loginCover)
@@ -50,6 +53,9 @@
     if (!mobileLoginMedia.matches || !visualViewport) {
       loginScreen.style.removeProperty('--login-viewport-height');
       loginScreen.classList.remove('mobile-keyboard-open');
+      pageShell.classList.remove('login-keyboard-open');
+      pageShell.style.removeProperty('--login-visible-height');
+      pageShell.style.removeProperty('--login-visible-top');
       return;
     }
 
@@ -58,15 +64,40 @@
       document.activeElement === usernameInput ||
       document.activeElement === passwordInput;
 
+    if (!loginInputFocused) {
+      loginRestingHeight = visibleHeight;
+    }
+    const keyboardOpen = !loginScreen.hidden && loginCover.hidden &&
+      loginInputFocused &&
+      visibleHeight < Math.max(window.innerHeight, loginRestingHeight) - 80;
+    const keyboardJustOpened = keyboardOpen &&
+      !pageShell.classList.contains('login-keyboard-open');
+
     loginScreen.style.setProperty('--login-viewport-height', `${visibleHeight}px`);
-    loginScreen.classList.toggle(
-      'mobile-keyboard-open',
-      loginInputFocused && visibleHeight < window.innerHeight - 80
-    );
+    loginScreen.classList.toggle('mobile-keyboard-open', keyboardOpen);
+    pageShell.classList.toggle('login-keyboard-open', keyboardOpen);
+    pageShell.style.setProperty('--login-visible-height', `${visibleHeight}px`);
+    pageShell.style.setProperty('--login-visible-top', `${visualViewport.offsetTop}px`);
+
+    if (keyboardJustOpened) {
+      window.requestAnimationFrame(() => {
+        const input = document.activeElement;
+        if (input !== usernameInput && input !== passwordInput) return;
+        const panel = loginScreen.getBoundingClientRect();
+        const field = input.getBoundingClientRect();
+        if (field.bottom > panel.bottom - 12) {
+          loginScreen.scrollTop += field.bottom - panel.bottom + 12;
+        } else if (field.top < panel.top + 12) {
+          loginScreen.scrollTop -= panel.top + 12 - field.top;
+        }
+      });
+    }
   }
 
   if (visualViewport) {
     visualViewport.addEventListener('resize', syncMobileLoginViewport);
+    visualViewport.addEventListener('scroll', syncMobileLoginViewport);
+    window.addEventListener('resize', syncMobileLoginViewport);
     usernameInput.addEventListener('focus', syncMobileLoginViewport);
     passwordInput.addEventListener('focus', syncMobileLoginViewport);
     loginForm.addEventListener('focusout', () => {
@@ -109,6 +140,7 @@
       screen.hidden = !isActive;
       screen.classList.toggle('active', isActive);
     });
+    syncMobileLoginViewport();
 
     if (typeof pageShell.scrollTo === 'function') {
       pageShell.scrollTo({ top: 0, behavior: 'smooth' });
@@ -359,4 +391,3 @@
     showLogin({ track: true });
   }
 })();
-
